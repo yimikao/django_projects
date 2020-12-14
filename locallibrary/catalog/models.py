@@ -33,6 +33,12 @@ class Book(models.Model):
     # Foreign Key used because book can only have one language, but languages can have multiple books
     # Author as a string rather than object because it hasn't been declared yet in file.
     language = models.ForeignKey('Language', null=True, on_delete=models.SET_NULL)
+
+    def display_genre(self):
+        """Create a string for the Genre. This is required to display genre in admin"""
+        return ', '.join(genre.name for genre in self.genre.all()[:3])
+
+    display_genre.short_description = 'Genre'
     
     def __str__(self):
         """String for representing the Model object."""
