@@ -34,3 +34,6 @@ def index(request):
 
     #For class-based view
     from django.views import generic
+
+    class BookListView(generic.ListView):
+        model = Book
