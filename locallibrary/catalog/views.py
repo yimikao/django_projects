@@ -32,8 +32,18 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-    #For class-based view
-    from django.views import generic
+#For class-based view
+from django.views import generic
 
-    class BookListView(generic.ListView):
-        model = Book
+class BookListView(generic.ListView):
+    model = Book
+    paginate_by = 2
+
+class BookDetailView(generic.DetailView):
+    model = Book
+
+class AuthorListView(generic.ListView):
+    model = Author
+
+class AuthorDetailView(generic.DetailView):
+    model = Author
