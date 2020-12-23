@@ -14,4 +14,6 @@
         <li>Books with title <em>'the'</em>: {{ num_books_word }}</li>
         <li>Genres with word 'sport': {{ num_genres_word }}</li>
     </ul>
+
+    <p>You have visited this page {{ num_visits }} time{% if num_visits > 1 %}s{% endif %}.</p>
 {% endblock %}
