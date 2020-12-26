@@ -40,15 +40,29 @@ def index(request):
 #For class-based view
 from django.views import generic
 
+from django.contrib.auth.mixins import LoginRequiredMixin
+
 class BookListView(generic.ListView):
     model = Book
     paginate_by = 2
 
-class BookDetailView(generic.DetailView):
+class BookDetailView(LoginRequiredMixin, generic.DetailView):
     model = Book
+    # redirect_field_name = 'redirect_to'
 
 class AuthorListView(generic.ListView):
     model = Author
 
-class AuthorDetailView(generic.DetailView):
+class AuthorDetailView(LoginRequiredMixin, generic.DetailView):
     model = Author
+    # redirect_field_name = 'redirect_to'
+
+class LoanedBooksByUserListView(LoginRequiredMixin, generic.ListView):
+    """Generic class-based view listing books to loan to current user."""
+    model = BookInstance
+    template_name = 'catalog/bookinstance_list_borrowed_user.html'
+    paginate_by = 10
+
+    def get_queryset(self):
+        return BookInstance.objects.filter(borrower=self.request.user).filter(status__exact='o').order_by('due_back')
+        

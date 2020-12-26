@@ -1,0 +1,16 @@
+{% extends "base_generic.html" %}
+
+
+{% block content %}
+<h1>My List of Blog posts:</h1>
+
+
+{% if post_list %}
+
+    {% for post in post_list%}
+        <a href="{{ post.get_absolute_url }}"><h3>{{ post }}</h3></a>
+    {% endfor %}
+
+{% endif %}
+
+{% endblock %}
